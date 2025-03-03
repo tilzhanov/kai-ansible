@@ -1,0 +1,10 @@
+---
+- name: Update system packages
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update package cache and install updates
+      apt:
+        update_cache: yes
+        upgrade: dist
+      when: ansible_os_family == "Debian"
