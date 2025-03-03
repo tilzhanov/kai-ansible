@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  container1:
+    image: ubuntu-ssh:v1.0
+    container_name: container1
+    ports:
+      - "2221:22"
+    volumes:
+      - ./ssh-key/main.pub:/tmp/main.pub:ro
+    command: sh -c "cp /tmp/main.pub /root/.ssh/authorized_keys && chmod 600 /root/.ssh/authorized_keys && chown root:root /root/.ssh/authorized_keys && /usr/sbin/sshd -D"
+    restart: unless-stopped
+
+  container2:
+    image: ubuntu-ssh:v1.0
+    container_name: container2
+    ports:
+      - "2222:22"
+    volumes:
+      - ./ssh-key/main.pub:/tmp/main.pub:ro
+    command: sh -c "cp /tmp/main.pub /root/.ssh/authorized_keys && chmod 600 /root/.ssh/authorized_keys && chown root:root /root/.ssh/authorized_keys && /usr/sbin/sshd -D"
+    restart: unless-stopped
+
+  container3:
+    image: ubuntu-ssh:v1.0
+    container_name: container3
+    ports:
+      - "2223:22"
+    volumes:
+      - ./ssh-key/main.pub:/tmp/main.pub:ro
+    command: sh -c "cp /tmp/main.pub /root/.ssh/authorized_keys && chmod 600 /root/.ssh/authorized_keys && chown root:root /root/.ssh/authorized_keys && /usr/sbin/sshd -D"
+    restart: unless-stopped
