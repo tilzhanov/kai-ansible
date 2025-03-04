@@ -1,0 +1,14 @@
+---
+- name: Create support user
+  hosts: all
+  become: yes
+  vars:
+    support_password: "{{ vault_support_password }}"
+  tasks:
+    - name: Create user support with sudo and docker groups
+      user:
+        name: support
+        password: "{{ support_password | password_hash('sha512') }}"
+        groups: sudo,docker
+        append: yes
+        shell: /bin/bash
