@@ -1,0 +1,12 @@
+---
+- name: Modify /etc/hosts
+  hosts: all
+  become: yes
+  tasks:
+    - name: Ensure kai.kz entry exists in /etc/hosts
+      shell: |
+        if ! grep -q "127.0.1.1 kai.kz" /etc/hosts; then
+          echo "127.0.1.1 kai.kz" >> /etc/hosts
+        fi
+      args:
+        executable: /bin/bash

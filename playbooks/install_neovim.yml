@@ -1,0 +1,44 @@
+---
+- name: Install NeoVim from release archive
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install prerequisites
+      apt:
+        name:
+          - gcc
+          - g++
+          - tar
+        state: present
+        update_cache: yes
+
+    - name: Download NeoVim archive
+      get_url:
+        url: https://github.com/neovim/neovim/releases/download/v0.10.2/nvim-linux64.tar.gz
+        dest: /tmp/nvim-linux64.tar.gz
+        mode: '0644'
+
+    - name: Extract NeoVim archive
+      unarchive:
+        src: /tmp/nvim-linux64.tar.gz
+        dest: /opt/
+        remote_src: yes
+        creates: /opt/nvim-linux64/bin/nvim
+
+    - name: Ensure NeoVim binary is in PATH
+      file:
+        src: /opt/nvim-linux64/bin/nvim
+        dest: /usr/local/bin/nvim
+        state: link
+        force: yes
+
+    - name: Add vim=nvim alias to /etc/profile
+      lineinfile:
+        path: /etc/profile
+        line: "alias vim=nvim"
+        state: present
+
+    - name: Clean up downloaded archive
+      file:
+        path: /tmp/nvim-linux64.tar.gz
+        state: absent

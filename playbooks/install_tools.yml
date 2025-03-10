@@ -1,0 +1,14 @@
+---
+- name: Install required tools
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install net-tools, mc, xsel, and docker
+      apt:
+        name:
+          - net-tools
+          - mc
+          - xsel
+          - docker.io
+        state: present
+        update_cache: yes

@@ -1,0 +1,14 @@
+---
+- name: Setup domain name
+  hosts: all
+  become: yes
+  tasks:
+    - name: Check current hostname
+      command: hostname -f
+      register: current_hostname
+      changed_when: false
+
+    - name: Set hostname to kai.kz
+      hostname:
+        name: kai.kz
+      when: "'kai.kz' not in current_hostname.stdout"

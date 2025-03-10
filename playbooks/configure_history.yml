@@ -1,0 +1,22 @@
+---
+- name: Configure shell history
+  hosts: all
+  become: yes
+  tasks:
+    - name: Set HISTSIZE to 2500
+      lineinfile:
+        path: /etc/profile
+        line: "HISTSIZE=2500"
+        state: present
+
+    - name: Set HISTFILESIZE to 2500
+      lineinfile:
+        path: /etc/profile
+        line: "HISTFILESIZE=2500"
+        state: present
+
+    - name: Set HISTTIMEFORMAT to d-m-y
+      lineinfile:
+        path: /etc/profile
+        line: 'HISTTIMEFORMAT="%d-%m-%y "'
+        state: present

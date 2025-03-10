@@ -5,10 +5,10 @@
   vars:
     support_password: "{{ vault_support_password }}"
   tasks:
-    - name: Create user support with sudo and docker groups
+    - name: Create user support with sudo group
       user:
         name: support
         password: "{{ support_password | password_hash('sha512') }}"
-        groups: sudo,docker
+        groups: sudo
         append: yes
         shell: /bin/bash
