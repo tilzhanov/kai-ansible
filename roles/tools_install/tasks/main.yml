@@ -1,0 +1,11 @@
+---
+- name: Install required tools
+  apt:
+    name:
+      - net-tools
+      - mc
+      - xsel
+      - docker.io
+    state: present
+    update_cache: yes---
+# tasks file for roles/tools_install

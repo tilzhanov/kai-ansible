@@ -1,0 +1,19 @@
+---
+- name: Ensure /etc/ssl/private directory exists
+  file:
+    path: /etc/ssl/private
+    state: directory
+    mode: '0700'
+
+- name: Generate CA private key if not exists
+  command: openssl genrsa -out /etc/ssl/private/ca.key 2048
+  args:
+    creates: /etc/ssl/private/ca.key
+
+- name: Generate CA certificate if not exists
+  command: openssl req -x509 -new -nodes -key /etc/ssl/private/ca.key -sha256 -days 3650 -out /etc/ssl/certs/ca.crt -subj "/CN=MyCA"
+  args:
+    creates: /etc/ssl/certs/ca.crt
+
+- name: Update CA trust
+  command: update-ca-certificates

@@ -1,0 +1,2 @@
+---
+support_password: "{{ vault_support_password }}"

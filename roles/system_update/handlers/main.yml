@@ -1,0 +1,5 @@
+---
+- name: reboot_if_needed
+  reboot:
+    reboot_timeout: 300
+  when: ansible_reboot_pending is defined and ansible_reboot_pending

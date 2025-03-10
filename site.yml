@@ -1,0 +1,15 @@
+---
+- name: Configure all systems
+  hosts: all
+  become: yes
+  roles:
+    - system_update
+    - user_management
+    - ca_setup
+    - history_config
+    - hostname_config
+    - hosts_file
+    - tools_install
+    - timezone_setup
+    - neovim_install
+    - reboot_system

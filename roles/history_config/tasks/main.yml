@@ -1,0 +1,11 @@
+---
+- name: Configure shell history environment
+  lineinfile:
+    path: /etc/profile
+    line: "{{ item }}"
+    state: present
+  loop:
+    - "HISTSIZE=2500"
+    - "HISTFILESIZE=2500"
+    - 'HISTTIMEFORMAT="%d-%m-%y "'
+  notify: reload_profile
